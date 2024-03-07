@@ -15,13 +15,11 @@ export const WatchBox = () => {
         >
           {isOpen2 ? "–" : "+"}
         </button>
-        {isOpen2 && (
           <>
-           <WatchedSummary watched={watched}/>
+           <WatchedSummary watched={watched} classOpen={isOpen2}/>
 
-            <WatchedList watched={watched}/>
+            <WatchedList watched={watched} classOpen={isOpen2}/>
           </>
-        )}
       </div>
     )
 }

@@ -11,9 +11,7 @@ export const ListBox = ({movies}) => {
         >
           {isOpen1 ? "–" : "+"}
         </button>
-        {isOpen1 && (
-          <FilmList movies={movies} />
-        )}
+          <FilmList movies={movies} classOpen={isOpen1} />
       </div>
     )
 }
