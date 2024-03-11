@@ -9,7 +9,7 @@ export const WatchedSummary = ({watched, classOpen}) => {
 
     const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
     const avgUserRating = average(watched.map((movie) => movie.userRating));
-    const avgRuntime = sum(watched.map((movie) => movie.runtime));
+    const sumRuntime = sum(watched.map((movie) => movie.runtime));
 
     return (
         <div className={classOpen ? 'summary active' : 'summary hidden'}>
@@ -29,7 +29,7 @@ export const WatchedSummary = ({watched, classOpen}) => {
           </p>
           <p>
             <span>⏳</span>
-            <span>{avgRuntime} min</span>
+            <span>{sumRuntime} min</span>
           </p>
         </div>
       </div>
