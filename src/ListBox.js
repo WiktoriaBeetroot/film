@@ -1,17 +1,13 @@
-import { useState } from "react";
-import { FilmList } from "./FilmList";
-
-export const ListBox = ({movies}) => {
-    const [isOpen1, setIsOpen1] = useState(true);
+export const ListBox = ({children, onIsOpen1, classOpen}) => {
     return (
     <div className="box">
         <button
           className="btn-toggle"
-          onClick={() => setIsOpen1((open) => !open)}
+          onClick={() => onIsOpen1((open) => !open)}
         >
-          {isOpen1 ? "–" : "+"}
+          {classOpen ? "–" : "+"}
         </button>
-          <FilmList movies={movies} classOpen={isOpen1} />
+          {children}
       </div>
     )
 }

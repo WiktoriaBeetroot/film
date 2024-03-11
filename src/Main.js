@@ -1,12 +1,7 @@
-import { ListBox } from './ListBox';
-import { WatchBox } from './WatchBox';
-
-export const Main = ({movies}) => {
+export const Main = ({children}) => {
     return (
         <main className="main">
-            <ListBox movies={movies}/>
-
-            <WatchBox />
+            {children}
       </main>
     )
 }

@@ -1,13 +1,7 @@
-import { Search } from "./Search"
-import { Logo } from "./Logo"
-import { NumFilm } from "./NumFilms"
-
-export const Nav = ({movies}) => {
+export const Nav = ({children}) => {
     return (
     <nav className="nav-bar">
-        <Logo />
-        <Search/>
-        <NumFilm movies={movies}/>
-      </nav> 
+      {children}
+    </nav> 
     )
 }
