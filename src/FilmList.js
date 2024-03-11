@@ -1,8 +1,8 @@
 import { FilmItem } from "./FilmItem"
 
-export const FilmList = ({movies, classOpen}) => {
+export const FilmList = ({movies, isOpen}) => {
     return (
-        <ul className={classOpen ? 'list active' : 'list hidden'}>
+        <ul className={`list ${isOpen ? ' active' : 'hidden'}`}>
         {movies?.map((movie) => (
             <FilmItem movie={movie} key={movie.imdbID}/>
         ))}

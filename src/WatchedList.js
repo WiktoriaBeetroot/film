@@ -1,8 +1,8 @@
 import { WatchedItem } from "./WatchedItem"
 
-export const WatchedList = ({watched, classOpen}) => {
+export const WatchedList = ({watched, isOpen}) => {
     return (
-        <ul className={classOpen ? 'list active' : 'list hidden'}>
+        <ul className={`list ${isOpen ? 'active' : 'hidden'}`}>
         {watched.map((movie) => (
           <WatchedItem movie={movie} key={movie.imdbID}/>
         ))}

@@ -5,14 +5,16 @@ import { Main } from "./Main";
 import { Search } from "./Search";
 import { Logo } from "./Logo";
 import { NumFilm } from "./NumFilms";
-import { ListBox } from './ListBox';
-import { WatchBox } from './WatchBox';
+import { Box } from './ListBox';
 import { FilmList } from "./FilmList";
-
+import {tempWatchedData} from './data';
+import { WatchedSummary } from "./WatchedSummary";
+import { WatchedList } from "./WatchedList";
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
-  const [isOpen1, setIsOpen1] = useState(true);
+  const [watched, setWatched] = useState(tempWatchedData);
+
   
   return (
     <>
@@ -22,10 +24,13 @@ export default function App() {
         <NumFilm movies={movies}/>
       </Nav>
       <Main>
-        <ListBox onIsOpen1={setIsOpen1} classOpen={isOpen1}>
-          <FilmList movies={movies} classOpen={isOpen1} /> 
-        </ListBox> 
-        <WatchBox /> 
+        <Box>
+          <FilmList movies={movies} /> 
+        </Box> 
+        <Box>
+          <WatchedSummary watched={watched}/>
+          <WatchedList watched={watched}/>
+        </Box> 
     </Main>
     </>
   );

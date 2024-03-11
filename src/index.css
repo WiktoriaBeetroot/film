@@ -143,6 +143,8 @@ body {
   list-style: none;
   padding: 0.8rem 0;
   overflow: scroll;
+  opacity: 1.0;
+  transition: opacity 0.3s linear;
 }
 
 .list-watched {
@@ -219,6 +221,8 @@ body {
   border-radius: 0.9rem;
   background-color: var(--color-background-100);
   box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
+  opacity: 1.0;
+  transition: opacity 0.3s linear;
 }
 
 .summary h2 {
@@ -344,17 +348,8 @@ body {
   justify-content: center;
 }
 
-.active {
-  opacity: 1;
-  visibility: visible;
-  height: auto;
-  transition: 0.3s ease all;
-}
-
 .hidden {
-  opacity: 0;
-  visibility: hidden;
-  height: 0;
+  opacity: 0.0;
 }
 
 @media screen and (min-width: 667px) {

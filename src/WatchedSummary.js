@@ -1,4 +1,4 @@
-export const WatchedSummary = ({watched, classOpen}) => {
+export const WatchedSummary = ({watched, isOpen}) => {
     function average(arr) {
         return arr.reduce((prev, cur, i, arr) => prev + cur / arr.length, 0 ) 
     }
@@ -12,7 +12,8 @@ export const WatchedSummary = ({watched, classOpen}) => {
     const sumRuntime = sum(watched.map((movie) => movie.runtime));
 
     return (
-        <div className={classOpen ? 'summary active' : 'summary hidden'}>
+        
+        <div className={`summary ${isOpen ? 'active' : 'hidden'}`}>
         <h2>Movies you watched</h2>
         <div>
           <p>

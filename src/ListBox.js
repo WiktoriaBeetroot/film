@@ -1,13 +1,20 @@
-export const ListBox = ({children, onIsOpen1, classOpen}) => {
+import React, { useState } from "react";
+
+export const Box = ({children, }) => {
+  const [isOpen, setIsOpen] = useState(true);
     return (
     <div className="box">
         <button
           className="btn-toggle"
-          onClick={() => onIsOpen1((open) => !open)}
+          onClick={() => setIsOpen((open) => !open)}
         >
-          {classOpen ? "–" : "+"}
+          {isOpen ? "–" : "+"}
         </button>
-          {children}
+
+        {/* Add prop to children */}
+        {React.Children.map(children, (child) => {
+          return React.cloneElement(child, { isOpen });
+        })}
       </div>
     )
 }
