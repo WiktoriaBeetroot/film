@@ -1,6 +1,6 @@
-export const FilmItem = ({movie}) => {
+export const FilmItem = ({movie, handleSelectedFilm}) => {
     return (
-    <li>
+    <li onClick={() => handleSelectedFilm(movie.imdbID)}>
         <img src={movie.Poster} alt={`${movie.Title} poster`} />
         <h3>{movie.Title}</h3>
         <div>

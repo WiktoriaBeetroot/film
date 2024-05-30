@@ -1,55 +1,97 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Nav } from "./Nav";
-import { tempMovieData } from "./data";
 import { Main } from "./Main";
 import { Search } from "./Search";
 import { Logo } from "./Logo";
 import { NumFilm } from "./NumFilms";
 import { Box } from "./ListBox";
 import { FilmList } from "./FilmList";
-import { tempWatchedData } from "./data";
 import { WatchedSummary } from "./WatchedSummary";
 import { WatchedList } from "./WatchedList";
-import { StarRating } from "./Star";
+import { Loader } from "./Loader";
+import { ErrorMessage } from "./Error";
+import { FilmDetails } from "./FilmDetails";
+
+const KEY = '73aaaa6d';
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [query, setQuery] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [selectedId, setSelectedId] = useState(null);
 
-  function MovieRating() {
-    const [movieRating, setMovieRating] = useState(0);
-    return (
-      <div>
-        <StarRating color="purple" onSetRating={setMovieRating} />
-        <p>This moview was rates {movieRating} stars</p>
-      </div>
-    );
+  function handleSelectedFilm(id) {
+    setSelectedId((currId) => currId === id ? null : id)
   }
+
+  function handleCloseFilmDetails() {
+    setSelectedId(null)
+  }
+
+  useEffect(function () {
+    async function fetchMovies() {
+      try {
+        setIsLoading(true);
+        setErrorMessage('');
+        const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
+
+        if (!res.ok) {
+          throw new Error('Something went wrong while fetching data')
+        }
+
+        const data = await res.json();
+        console.log(data)
+
+        if (data.Response === 'False') {
+          throw new Error('Nothing is found')
+        }
+   
+        setMovies(data.Search)
+      }catch(err) {
+        console.error(err.message)
+        setErrorMessage(err.message)
+      }finally {
+        setErrorMessage('')
+        setIsLoading(false)
+      }
+    }
+    if (!query.length) {
+      setMovies([]);
+      setErrorMessage('');
+      return
+    }
+    fetchMovies()
+  }, [query])
+
 
   return (
     <>
       <Nav>
         <Logo />
-        <Search />
+        <Search query={query} setQuery={setQuery}/>
         <NumFilm movies={movies} />
       </Nav>
       <Main>
         <Box>
-          <FilmList movies={movies} />
+        {isLoading ? (
+            <Loader />
+          ) : errorMessage ? (
+            <ErrorMessage errorMessage={errorMessage} />
+          ) : (
+            <FilmList movies={movies} handleSelectedFilm={handleSelectedFilm}/>
+          )}
         </Box>
         <Box>
-          <WatchedSummary watched={watched} />
-          <WatchedList watched={watched} />
-          <StarRating maxRating={10} />
-          <StarRating
-            size={20}
-            color="green"
-            className="test-star"
-            messages={["Terrible", "Bad", "Normal", "Good", "Amazing"]}
-            defaultValue={1}
-          />
-          <MovieRating />
-        </Box>
+      {
+        selectedId ? <FilmDetails selectedId={selectedId} handleCloseFilmDetails={handleCloseFilmDetails}/> :
+        <>
+          <WatchedSummary watched={watched}/>
+          <WatchedList watched={watched}/>
+        </>
+      }
+    </Box>
       </Main>
     </>
   );

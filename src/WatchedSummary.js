@@ -1,4 +1,6 @@
-export const WatchedSummary = ({watched, isOpen}) => {
+import { useBoxContext } from "./ListBox";
+
+export const WatchedSummary = ({watched}) => {
     function average(arr) {
         return arr.reduce((prev, cur, i, arr) => prev + cur / arr.length, 0 ) 
     }
@@ -10,6 +12,7 @@ export const WatchedSummary = ({watched, isOpen}) => {
     const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
     const avgUserRating = average(watched.map((movie) => movie.userRating));
     const sumRuntime = sum(watched.map((movie) => movie.runtime));
+    const { isOpen } = useBoxContext();
 
     return (
         
