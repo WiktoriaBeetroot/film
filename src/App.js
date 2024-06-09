@@ -30,6 +30,19 @@ export default function App() {
     setSelectedId(null)
   }
 
+  function handleAddWatchedFilm(movie) {
+    setWatched((watched) => {
+      if (!watched.some((watchedMovie) => watchedMovie.imdbId === movie.imdbId)) {
+        return [...watched, movie];
+      }
+      return watched;
+    });
+  }
+
+  function handleRemoveWatchedFilm(id) {
+    setWatched(watched => watched.filter((item) => item.imdbId !== id));
+  }
+
   useEffect(function () {
     async function fetchMovies() {
       try {
@@ -42,7 +55,6 @@ export default function App() {
         }
 
         const data = await res.json();
-        console.log(data)
 
         if (data.Response === 'False') {
           throw new Error('Nothing is found')
@@ -85,10 +97,10 @@ export default function App() {
         </Box>
         <Box>
       {
-        selectedId ? <FilmDetails selectedId={selectedId} handleCloseFilmDetails={handleCloseFilmDetails}/> :
+        selectedId ? <FilmDetails selectedId={selectedId} handleCloseFilmDetails={handleCloseFilmDetails} handleAddWatchedFilm={handleAddWatchedFilm} watchedMovie={watched}/> :
         <>
           <WatchedSummary watched={watched}/>
-          <WatchedList watched={watched}/>
+          <WatchedList watched={watched} handleRemoveWatchedFilm={handleRemoveWatchedFilm}/>
         </>
       }
     </Box>

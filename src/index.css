@@ -251,6 +251,7 @@ body {
 .details {
   line-height: 1.4;
   font-size: 1.4rem;
+  transition: opacity 0.3s ease;
 }
 
 .details header {
@@ -310,10 +311,18 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-add:hover {
   background-color: var(--color-primary-light);
+}
+
+.btn-add:disabled {
+  cursor: default;
+  opacity: 0.5;
 }
 
 .seconds {
@@ -350,6 +359,14 @@ body {
 
 .hidden {
   opacity: 0.0;
+}
+
+.notify {
+  background: var(--color-primary);
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
 }
 
 @media screen and (min-width: 667px) {

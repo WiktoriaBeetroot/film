@@ -11,7 +11,7 @@ export const WatchedSummary = ({watched}) => {
 
     const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
     const avgUserRating = average(watched.map((movie) => movie.userRating));
-    const sumRuntime = sum(watched.map((movie) => movie.runtime));
+    const sumRuntime = sum(watched.filter((movie) => !isNaN(movie.runtime)).map((movie) => movie.runtime));
     const { isOpen } = useBoxContext();
 
     return (
@@ -25,15 +25,15 @@ export const WatchedSummary = ({watched}) => {
           </p>
           <p>
             <span>⭐️</span>
-            <span>{avgImdbRating}</span>
+            <span>{Math.round(avgImdbRating)}</span>
           </p>
           <p>
             <span>🌟</span>
-            <span>{avgUserRating}</span>
+            <span>{avgUserRating.toFixed(1)}</span>
           </p>
           <p>
             <span>⏳</span>
-            <span>{sumRuntime} min</span>
+            <span>{sumRuntime.toFixed(1)} min</span>
           </p>
         </div>
       </div>
