@@ -58,6 +58,14 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
         getMovieDetails()
     }, [selectedId])
 
+    useEffect(function() {
+        if (!title) {
+            return
+        }
+
+        document.title = `Film | ${title}`
+    }, [title])
+
 
     return (
         <div className={`details  ${isOpen ? ' active' : 'hidden'}`}>
@@ -65,13 +73,25 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
             <>
                 <header>
                     <button onClick={handleCloseFilmDetails} className="btn-back">&larr;</button>
-                    <img src={poster} alt={title}></img>
+                    {poster !== 'N/A' ? (
+                            <img src={poster} alt={`${title} poster`} />
+                        ) : (
+                            <img src={`${process.env.PUBLIC_URL}/images/default_image.jpeg`} alt="default_image"></img>
+                    )}
 
                     <div className="details-overview">
                         <h2>{title}</h2>
-                        <p>🗓 {released}, 🕛 {runtime}</p>
-                        <p>🎞 {genre}</p>
-                        <p>⭐️ {imdbRating}</p>
+                        {(released !== 'N/A' && runtime !== 'N/A') &&
+                            <p>🗓 {released}, 🕛 {runtime}</p>
+                        }
+                        
+                        {genre !== 'N/A' && 
+                            <p>🎞 {genre}</p>
+                        }
+
+                        {imdbRating !== 'N/A' &&
+                            <p>⭐️ {imdbRating}</p>
+                        }
                     </div>
                 </header>
 
@@ -90,9 +110,17 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
                     ) : (
                         <p className="notify">❗️ This film was already added to your list <br></br><span>🌟 You have rate it by {watchedRating}</span></p>
                     )}
-                    <p><em>{plot}</em></p>
-                    <p>💁‍♀️ Actors: {actors}</p>
-                    <p>🎞 Directed by {director}</p>
+                    {plot !== 'N/A' &&
+                        <p><em>{plot}</em></p>
+                    }
+
+                    {actors !== 'N/A' && 
+                        <p>💁‍♀️ Actors: {actors}</p>
+                    }
+
+                    {director !== 'N/A' && 
+                        <p>🎞 Directed by {director}</p>
+                    }
                 </section>
             </>
         }
