@@ -64,6 +64,10 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
         }
 
         document.title = `Film | ${title}`
+
+        return function() {
+            document.title = 'usePopcorn';
+        }
     }, [title])
 
 
