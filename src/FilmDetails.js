@@ -44,6 +44,20 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
     }
 
     useEffect(function() {
+        function callback(e) {
+            if(e.code === 'Escape') {
+                handleCloseFilmDetails()
+            } 
+        }
+
+        document.addEventListener('keydown', callback)
+
+        return function() {
+            document.removeEventListener('keydown', callback)
+        }
+    }, [handleCloseFilmDetails])
+
+    useEffect(function() {
         async function getMovieDetails() {
             setIsLoading(true)
             try{
@@ -69,7 +83,6 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
             document.title = 'usePopcorn';
         }
     }, [title])
-
 
     return (
         <div className={`details  ${isOpen ? ' active' : 'hidden'}`}>
