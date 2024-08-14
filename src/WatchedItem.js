@@ -1,7 +1,11 @@
 export const WatchedItem = ({movie, handleRemoveWatchedFilm}) => {
     return (
      <li>
-        <img src={movie.poster} alt={`${movie.title} poster`} />
+      { movie.poster !== 'N/A' ? (
+          <img src={movie.poster} alt={`${movie.title} poster`} />
+      ) : (
+        <img src={`${process.env.PUBLIC_URL}/images/default_image.jpeg`} alt="default_image" />
+      )}
         <h3>{movie.title}</h3>
         <div>
           <p>
