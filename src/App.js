@@ -17,7 +17,11 @@ const KEY = '73aaaa6d';
 export default function App() {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(function() {
+    const storedWatched = localStorage.getItem("watched");
+
+    return JSON.parse(storedWatched);
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedId, setSelectedId] = useState(null);
@@ -83,6 +87,10 @@ export default function App() {
       controller.abort();
     }
   }, [query])
+
+  useEffect(function() {
+    localStorage.setItem('watched', JSON.stringify(watched))
+  }, [watched])
 
 
   return (

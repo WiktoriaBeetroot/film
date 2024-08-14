@@ -6,7 +6,7 @@ export const WatchedList = ({watched, handleRemoveWatchedFilm}) => {
     return (
         <ul className={`list ${isOpen ? 'active' : 'hidden'}`}>
         {watched.map((movie) => (
-          <WatchedItem movie={movie} key={`${movie.imdbID}-watched}`} handleRemoveWatchedFilm={handleRemoveWatchedFilm}/>
+          <WatchedItem movie={movie} key={`${movie.imdbId}-watched}`} handleRemoveWatchedFilm={handleRemoveWatchedFilm}/>
         ))}
       </ul>
     )
