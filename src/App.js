@@ -20,7 +20,11 @@ export default function App() {
   const [watched, setWatched] = useState(function() {
     const storedWatched = localStorage.getItem("watched");
 
-    return JSON.parse(storedWatched);
+    if (storedWatched) {
+      return JSON.parse(storedWatched);
+    }else {
+      return []
+    }
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
