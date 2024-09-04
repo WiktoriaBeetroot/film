@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StarRating } from "./Star";
 import { Loader } from "./Loader";
 import { useBoxContext } from "./ListBox";
@@ -13,6 +13,14 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
 
     const isWatched = watchedMovie.map((item) => item.imdbId).includes(selectedId);
     const watchedRating = watchedMovie.find((item) => item.imdbId === selectedId)?.userRating;
+
+    const refCount = useRef(0);
+
+    useEffect(function() {
+        if (userRating) {
+            refCount.current = refCount.current + 1;
+        }
+    }, [userRating])
 
     const {
         Title : title,
@@ -36,6 +44,7 @@ export const FilmDetails = ({selectedId, handleCloseFilmDetails, handleAddWatche
             imdbRating: Number(imdbRating),
             runtime: Number(runtime.split(" ").at(0)),
             userRating,
+            refUserRatig: refCount.current,
         }
 
         handleAddWatchedFilm(newWatchedMview)
